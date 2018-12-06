@@ -49,7 +49,9 @@ public class Sudoku extends LatinSquare implements Serializable {
 	private HashMap<Integer, SudokuCell> cells = new HashMap<Integer, SudokuCell>();
 
 	private eGameDifficulty eGameDifficulty;
-
+	
+	private int MistakesCount;
+	
 	/**
 	 * Sudoku - No-arg private constructor should set the eGameDifficulty to EASY by
 	 * default
@@ -60,6 +62,8 @@ public class Sudoku extends LatinSquare implements Serializable {
 	private Sudoku() {
 		super();
 		this.eGameDifficulty = eGameDifficulty.EASY;
+		this.MistakesCount = 0;
+		
 	}
 
 	/**
@@ -447,6 +451,7 @@ public class Sudoku extends LatinSquare implements Serializable {
 	 * @return true if the given puzzle is a partial sudoku
 	 */
 	public boolean isPartialSudoku() {
+		//this.MistakesCount = this.MistakesCount + super().getPV().size();??
 
 		super.setbIgnoreZero(true);
 
@@ -476,18 +481,27 @@ public class Sudoku extends LatinSquare implements Serializable {
 	public boolean isSudoku() {
 
 		this.setbIgnoreZero(false);
-
+		//this.MistakesCount = this.MistakesCount + this.getPV().size();
+		
+		if (getPV().size() > 0) {
+			this.MistakesCount++;
+		}
 		super.ClearPuzzleViolation();
 
-		if (hasDuplicates())
-			return false;
+		if (hasDuplicates()) {
+			return false;}
 
-		if (!super.isLatinSquare())
+		if (!super.isLatinSquare()) {
+			//wrong way to iterate, want to get PV size and add violations per each violation in PV
 			return false;
+		}
+
 
 		for (int i = 1; i < super.getLatinSquare().length; i++) {
 
 			if (!hasAllValues(getRow(0), getRegion(i))) {
+				this.MistakesCount++;
+				System.out.println(MistakesCount);
 				return false;
 			}
 		}
@@ -552,6 +566,7 @@ public class Sudoku extends LatinSquare implements Serializable {
 		}
 
 		return PV;
+		
 	}
 
 	/**
@@ -954,4 +969,22 @@ public class Sudoku extends LatinSquare implements Serializable {
 		}
 
 	}
+
+	public int getMistakesCount() {
+		return MistakesCount;
+	}
+
+	public void setMistakesCount(int mistakesCount) {
+		MistakesCount = mistakesCount;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -375,4 +375,13 @@ public class LatinSquare {
 	protected void AddPuzzleViolation(PuzzleViolation pv) {
 		PV.add(pv);
 	}
+	
+	public int PV_Size(ArrayList<PuzzleViolation> pv) {
+		
+		int p = pv.size();
+		
+		
+		return p;
+		
+	}
 }

@@ -77,13 +77,15 @@ public enum eGameDifficulty {
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
 			eGameDifficulty enumDifficulty = (eGameDifficulty) pair.getValue();
-			int iDifficultyValue = (int) pair.getKey();
+			int iDifficultyValue  = (int) pair.getKey();
 			if (iDifficulty > iDifficultyValue) {
 				eGD = enumDifficulty;
 			}
 		}
 		return eGD;
 	}
+	
+	
 	
 	
 	
