@@ -98,6 +98,8 @@ public class Sudoku extends LatinSquare implements Serializable {
 		SetCells();
 		fillRemaining(this.cells.get(Objects.hash(0, iSqrtSize)));
 		RemoveCells();
+		this.MistakesCount = 0;
+		
 
 	}
 
@@ -115,6 +117,7 @@ public class Sudoku extends LatinSquare implements Serializable {
 		this(iSize);
 		this.eGameDifficulty = eGD;
 		RemoveCells();
+		this.MistakesCount = 0;
 	}
 
 	/**
@@ -136,6 +139,7 @@ public class Sudoku extends LatinSquare implements Serializable {
 		} else {
 			throw new Exception("Invalid size");
 		}
+		this.MistakesCount = 0;
 
 	}
 
@@ -971,13 +975,16 @@ public class Sudoku extends LatinSquare implements Serializable {
 	}
 
 	public int getMistakesCount() {
-		return MistakesCount;
+		return this.MistakesCount;
 	}
 
-	public void setMistakesCount(int mistakesCount) {
-		MistakesCount = mistakesCount;
+	public int getMaxMistakes() {
+		return this.eGameDifficulty.getMaxMistakes();
 	}
 	
+	public void AddMistakes(int iMistake) {
+		this.MistakesCount = this.MistakesCount + iMistake;
+	}
 	
 	
 	
