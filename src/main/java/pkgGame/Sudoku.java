@@ -50,7 +50,7 @@ public class Sudoku extends LatinSquare implements Serializable {
 
 	private eGameDifficulty eGameDifficulty;
 	
-	private int MistakesCount;
+	private int iMistakesCount;
 	
 	/**
 	 * Sudoku - No-arg private constructor should set the eGameDifficulty to EASY by
@@ -62,7 +62,7 @@ public class Sudoku extends LatinSquare implements Serializable {
 	private Sudoku() {
 		super();
 		this.eGameDifficulty = eGameDifficulty.EASY;
-		this.MistakesCount = 0;
+		this.iMistakesCount = 0;
 		
 	}
 
@@ -98,7 +98,7 @@ public class Sudoku extends LatinSquare implements Serializable {
 		SetCells();
 		fillRemaining(this.cells.get(Objects.hash(0, iSqrtSize)));
 		RemoveCells();
-		this.MistakesCount = 0;
+		this.iMistakesCount = 0;
 		
 
 	}
@@ -117,7 +117,7 @@ public class Sudoku extends LatinSquare implements Serializable {
 		this(iSize);
 		this.eGameDifficulty = eGD;
 		RemoveCells();
-		this.MistakesCount = 0;
+		this.iMistakesCount = 0;
 	}
 
 	/**
@@ -139,7 +139,7 @@ public class Sudoku extends LatinSquare implements Serializable {
 		} else {
 			throw new Exception("Invalid size");
 		}
-		this.MistakesCount = 0;
+		this.iMistakesCount = 0;
 
 	}
 
@@ -488,7 +488,7 @@ public class Sudoku extends LatinSquare implements Serializable {
 		//this.MistakesCount = this.MistakesCount + this.getPV().size();
 		
 		if (getPV().size() > 0) {
-			this.MistakesCount++;
+			this.iMistakesCount++;
 		}
 		super.ClearPuzzleViolation();
 
@@ -504,8 +504,8 @@ public class Sudoku extends LatinSquare implements Serializable {
 		for (int i = 1; i < super.getLatinSquare().length; i++) {
 
 			if (!hasAllValues(getRow(0), getRegion(i))) {
-				this.MistakesCount++;
-				System.out.println(MistakesCount);
+				this.iMistakesCount++;
+				System.out.println(iMistakesCount);
 				return false;
 			}
 		}
@@ -974,23 +974,26 @@ public class Sudoku extends LatinSquare implements Serializable {
 
 	}
 
-	public int getMistakesCount() {
-		return this.MistakesCount;
+	public int getiMistakesCount() {
+		return this.iMistakesCount;
 	}
 
 	public int getMaxMistakes() {
 		return this.eGameDifficulty.getMaxMistakes();
 	}
 	
-	public void AddMistakes(int iMistake) {
-		this.MistakesCount = this.MistakesCount + iMistake;
+	public void AddMistakes() {
+		
+		this.iMistakesCount++;
+		
+	
 	}
 	
-	
-	
-	
-	
-	
+	public String getMistakeMessage() {
+		
+		return this.getiMistakesCount() + "/" + this.eGameDifficulty.getMaxMistakes() + "mistakes";
+		
+	}
 	
 	
 	

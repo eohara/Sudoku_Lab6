@@ -84,14 +84,5 @@ public enum eGameDifficulty {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	}
 
